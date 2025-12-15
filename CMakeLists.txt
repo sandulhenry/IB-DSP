@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 
 project(
-    IB-DSP
+    IBDSP
     VERSION 0.1.0
     LANGUAGES CXX
 )
@@ -16,14 +16,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # -------------------------------
 # Library target
 # -------------------------------
-add_library(mydsp
-    src/waveforms.cpp
+add_library(IBDSP
+    src/waveforms/sine.cpp
 )
 
 # -------------------------------
 # Public include directory
 # -------------------------------
-target_include_directories(mydsp
+target_include_directories(IBDSP
     PUBLIC
         ${PROJECT_SOURCE_DIR}/include
 )
@@ -32,9 +32,9 @@ target_include_directories(mydsp
 # Warnings (good for learning)
 # -------------------------------
 if (MSVC)
-    target_compile_options(mydsp PRIVATE /W4)
+    target_compile_options(IBDSP PRIVATE /W4)
 else()
-    target_compile_options(mydsp PRIVATE -Wall -Wextra -Wpedantic)
+    target_compile_options(IBDSP PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
 # -------------------------------
@@ -46,7 +46,7 @@ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 # Install rules (optional, but pro)
 # -------------------------------
 install(
-    TARGETS IB-DSP
+    TARGETS IBDSP
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
     RUNTIME DESTINATION bin
@@ -56,3 +56,8 @@ install(
     DIRECTORY include/
     DESTINATION include
 )
+
+enable_testing()
+
+#add tests
+add_subdirectory(tests)

@@ -1,4 +1,4 @@
-#include <IB-DSP/include/waveforms/sine.hpp>
+#include <IBDSP/waveforms/sine.hpp>
 
 #include <cmath>
 
@@ -7,7 +7,7 @@
 namespace IBDSP::waveforms
 {
 
-    vector<float> SineWave::generateSineWave(
+    vector<float> generateSineWave(
         float frequency,
         float sampleRate,
         int numSamples,
@@ -35,4 +35,4 @@ namespace IBDSP::waveforms
         return buffer;
     }
 
-} // namespace mydsp::Waves
+}
