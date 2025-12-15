@@ -18,6 +18,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # -------------------------------
 add_library(IBDSP
     src/waveforms/sine.cpp
+    src/waveforms/square.cpp
 )
 
 # -------------------------------

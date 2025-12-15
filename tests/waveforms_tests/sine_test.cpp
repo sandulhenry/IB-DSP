@@ -51,7 +51,7 @@ int main()
     // Compare the two periods
     for (int i = 0; i < exactSamplesPerPeriod; ++i)
     {
-        cout << twoPeriodBufferExact[i] - twoPeriodBufferExact[i + exactSamplesPerPeriod] << endl;
+        //cout << twoPeriodBufferExact[i] - twoPeriodBufferExact[i + exactSamplesPerPeriod] << endl;
         assert(std::abs(twoPeriodBufferExact[i] - twoPeriodBufferExact[i + exactSamplesPerPeriod]) < 1e-5f);
     }
 
