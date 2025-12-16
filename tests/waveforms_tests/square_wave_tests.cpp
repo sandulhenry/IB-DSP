@@ -12,9 +12,7 @@ int main() {
     int numSamples = 48000;
     float phaseShift = 0.0f;
 
-    // -------------------------------
-    // Test 1: 50% duty square wave
-    // -------------------------------
+    // TEST 1: 50% duty cycle 
     auto square50 = IBDSP::waveforms::generateSquareWave(1.0, frequency, sampleRate, numSamples, phaseShift, 0.5f);
     assert(square50.size() == static_cast<size_t>(numSamples));
 
@@ -27,9 +25,9 @@ int main() {
     assert(maxVal <= 1.0f && maxVal >= 0.99f);
     assert(minVal >= -1.0f && minVal <= -0.99f);
 
-    // -------------------------------
+    
     // Test 2: Duty cycle correctness
-    // -------------------------------
+    
     int samplesPerPeriod = static_cast<int>(sampleRate / frequency);
     int highCount = 0;
     for (int i = 0; i < samplesPerPeriod; ++i) {
@@ -38,16 +36,16 @@ int main() {
     float dutyMeasured = static_cast<float>(highCount) / samplesPerPeriod;
     assert(std::abs(dutyMeasured - 0.5f) < 1e-6f);
 
-    // -------------------------------
+    
     // Test 3: Phase shift
-    // -------------------------------
+    
     auto squareShifted = IBDSP::waveforms::generateSquareWave(1.0, frequency, sampleRate, 1, pi/2, 0.5f);
     // phase shift of pi/2 should put first sample in high region
     assert(squareShifted[0] > 0.0f);
 
-    // -------------------------------
+    
     // Test 4: Custom duty cycle
-    // -------------------------------
+    
     float duty = 0.25f;
     auto square25 = IBDSP::waveforms::generateSquareWave(1.0, frequency, sampleRate, samplesPerPeriod, 0.0f, duty);
 
