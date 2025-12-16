@@ -9,13 +9,25 @@ const float epsilon = 1e-6f; // tolerance for floating-point comparisons
 
 int main()
 {
+
+    /**
+     * Generate a sine wave buffer.
+     *
+     * @param amplitude   Peak amplitude
+     * @param frequency   Frequency in Hz
+     * @param sampleRate  Sample rate in Hz
+     * @param numSamples  Number of samples to generate
+     * @param phase       Initial phase in radians
+     */
+
     // Parameters
+    float amplitude = 1.0f;
     float frequency = 440.0f;
     float sampleRate = 48000.0f;
     int numSamples = 48000;
     float phaseShift = 0.0f;
 
-    auto buffer = IBDSP::waveforms::generateSineWave(frequency, sampleRate, numSamples, phaseShift);
+    auto buffer = IBDSP::waveforms::generateSineWave(amplitude, frequency, sampleRate, numSamples, phaseShift);
 
     // ---- BASIC TESTS ----
 
@@ -31,7 +43,7 @@ int main()
     assert(maxVal <= 1.0f);
 
     // Test 4: Phase shift works (sin(pi) ≈ 0)
-    auto shiftedBuffer = IBDSP::waveforms::generateSineWave(frequency, sampleRate, 1, pi);
+    auto shiftedBuffer = IBDSP::waveforms::generateSineWave(amplitude, frequency, sampleRate, numSamples, pi);
     //std::cout << "DEBUG: val at idx 0: " << shiftedBuffer[0] << std::endl;
     assert(std::abs(shiftedBuffer[0]) < epsilon);
 
@@ -39,14 +51,14 @@ int main()
 
     // Test 5: One full period ends at approx zero
     int samplesPerPeriod = static_cast<int>(sampleRate / frequency);
-    auto periodBuffer = IBDSP::waveforms::generateSineWave(frequency, sampleRate, samplesPerPeriod, 0.0f);
+    auto periodBuffer = IBDSP::waveforms::generateSineWave(amplitude, frequency, sampleRate, samplesPerPeriod, 0.0f);
     //std::cout << "DEBUG: val at idx back: " << periodBuffer.back() << std::endl;
     assert(std::abs(periodBuffer.back()) < 0.1f); // allow small epsilon for float rounding
 
     // Test 6: Two periods repeat (frequency divides sampleRate exactly)
     float exactFreq = 480.0f; // 48000 / 480 = 100 samples per period exactly
     int exactSamplesPerPeriod = static_cast<int>(sampleRate / exactFreq);
-    auto twoPeriodBufferExact = IBDSP::waveforms::generateSineWave(exactFreq, sampleRate, 2 * exactSamplesPerPeriod, 0.0f);
+    auto twoPeriodBufferExact = IBDSP::waveforms::generateSineWave(amplitude, exactFreq, sampleRate, 2 * exactSamplesPerPeriod, 0.0f);
 
     // Compare the two periods
     for (int i = 0; i < exactSamplesPerPeriod; ++i)
@@ -56,14 +68,14 @@ int main()
     }
 
     // Test 7: Negative frequency behaves correctly (phase flips)
-    auto negFreqBuffer = IBDSP::waveforms::generateSineWave(-frequency, sampleRate, 100, 0.0f);
+    auto negFreqBuffer = IBDSP::waveforms::generateSineWave(amplitude, -frequency, sampleRate, 100, 0.0f);
     for (size_t i = 0; i < 100; ++i)
     {
         assert(std::abs(negFreqBuffer[i] + buffer[i]) < 1e-4f); // sine(-x) = -sin(x)
     }
 
     // Test 8: Very small frequency produces near-zero slope over first few samples
-    auto tinyFreqBuffer = IBDSP::waveforms::generateSineWave(0.01f, sampleRate, 100, 0.0f);
+    auto tinyFreqBuffer = IBDSP::waveforms::generateSineWave(amplitude, 0.01f, sampleRate, 100, 0.0f);
     assert(std::abs(tinyFreqBuffer[1] - tinyFreqBuffer[0]) < 1e-5f);
 
     std::cout << "All tests passed!\n";

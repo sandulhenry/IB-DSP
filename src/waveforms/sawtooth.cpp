@@ -1,45 +1,41 @@
 #include <IBDSP/waveforms/sawtooth.hpp>
+#include <IBDSP/waveforms/common.hpp>
 
 #include <cmath>
-#include <vector>
-
-#define TWOPI 6.283185307f
 
 namespace IBDSP::waveforms
 {
-
-    vector<float> generateSawtoothWave(
+    std::vector<float> generateSawtoothWave(
         float amplitude,
         float frequency,
         float sampleRate,
-        int numSamples,
-        float phase_shift,
-        bool desc
-        )
+        int   numSamples,
+        float phase,
+        bool  descending
+    )
     {
-        vector<float> buffer(numSamples);
+        std::vector<float> buffer(numSamples);
 
-        float phase = phase_shift;
-        float phaseInc = TWOPI * frequency / sampleRate;
+        const float phaseInc = TWO_PI * frequency / sampleRate;
+
+        phase = std::fmod(phase, TWO_PI);
+        if (phase < 0.0f) phase += TWO_PI;
 
         for (int i = 0; i < numSamples; ++i)
         {
-            // Normalize phase to [0, 1)
-            float normPhase = phase / TWOPI;
+            const float normPhase = phase / TWO_PI; // [0, 1)
 
-            // Sawtooth in range [-1, 1)
-            float value = desc 
-            ? (1.0f - 2.0f * normPhase)   // descending
-            : (2.0f * normPhase - 1.0f);  // ascending
+            float value = descending
+                ? (1.0f - 2.0f * normPhase)
+                : (2.0f * normPhase - 1.0f);
 
             buffer[i] = amplitude * value;
 
             phase += phaseInc;
-            if (phase >= TWOPI)
-                phase -= TWOPI;
+            if (phase >= TWO_PI)
+                phase -= TWO_PI;
         }
 
         return buffer;
     }
-
 }

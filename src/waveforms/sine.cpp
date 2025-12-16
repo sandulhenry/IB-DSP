@@ -1,38 +1,35 @@
 #include <IBDSP/waveforms/sine.hpp>
+#include <IBDSP/waveforms/common.hpp>
 
 #include <cmath>
 
-#define TWOPI 6.283185307
-
 namespace IBDSP::waveforms
 {
-
-    vector<float> generateSineWave(
+    std::vector<float> generateSineWave(
+        float amplitude,
         float frequency,
         float sampleRate,
-        int numSamples,
-        float phase_shift)
+        int   numSamples,
+        float phase
+    )
     {
         std::vector<float> buffer(numSamples);
-        float phase = phase_shift; // start from the phase shift
-        float phaseInc = TWOPI * frequency / sampleRate;
+
+        const float phaseInc = TWO_PI * frequency / sampleRate;
+
+        // Normalize phase
+        phase = std::fmod(phase, TWO_PI);
+        if (phase < 0.0f) phase += TWO_PI;
 
         for (int i = 0; i < numSamples; ++i)
         {
-            buffer[i] = std::sin(phase);
+            buffer[i] = amplitude * std::sin(phase);
 
             phase += phaseInc;
-            if (phase >= TWOPI)
-            {
-                phase -= TWOPI; // wrap phase
-            }
-            else if (phase < 0.0f)
-            {
-                phase += TWOPI; // handle negative phase
-            }
+            if (phase >= TWO_PI)
+                phase -= TWO_PI;
         }
 
         return buffer;
     }
-
 }
