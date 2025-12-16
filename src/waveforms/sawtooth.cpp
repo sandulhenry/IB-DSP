@@ -3,7 +3,7 @@
 #include <cmath>
 #include <vector>
 
-#define TWOPI 6.283185307
+#define TWOPI 6.283185307f
 
 namespace IBDSP::waveforms
 {
@@ -14,7 +14,7 @@ namespace IBDSP::waveforms
         float sampleRate,
         int numSamples,
         float phase_shift,
-        bool desc = false
+        bool desc
         )
     {
         vector<float> buffer(numSamples);
