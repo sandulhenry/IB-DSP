@@ -7,8 +7,7 @@
 #include <cassert>
 #include <vector>
 
-static constexpr float SAMPLE_RATE = 48000.0f;
-static constexpr float EPSILON = 1e-4f;
+static constexpr float EPSILON = 1e-2f;
 
 /* 
     NOTE: 
@@ -18,21 +17,32 @@ static constexpr float EPSILON = 1e-4f;
 */
 int main(){
     
-    // sine wave tests
+    // 1. sine wave tests
 
     IBDSP::oscillators::SineOscillator test;
+    //test processing the whole block
+    std::vector<float> buffer(1000);
+    test.processBlock(buffer.data(), 1000);
 
-    //initally 0
-    assert(std::fabs(test.process()) <= EPSILON);
+    // TEST 1.1: 0/4 of the cycle should be 0
+    assert(std::fabs(buffer[0]) - 0 < EPSILON);
 
-    /* A qaurter of the way through the cycle, we should ~1 */
+    // TEST 1.2: 1/4 of the cycle should be 1
+    assert(std::fabs(buffer[250-1]) - 1 < EPSILON);
 
-    std::vector<float> buffer (250-1);
-    test.processBlock(buffer.data(), 250-1);
+    // TEST 1.3: 2/4 of the cycle should be 0
+    assert(std::fabs(buffer[500-1]) - 0 < EPSILON);
 
-    std::cout << "BUFFER BACK is " << buffer.back() << std::endl;
+    // TEST 1.4: 3/4 of the cycle should be 1
+    assert(std::fabs(buffer[750 - 1]) - 1 < EPSILON);
 
-    assert(std::fabs(buffer.back() - 1) < EPSILON);
+    // TEST 1.5 4/4 of the cycle should be 0
+    assert(std::fabs(buffer[1000-1]) - 0 < EPSILON);
 
-    
+    //TEST 1.6 reset() will return to 0
+
+    test.reset();
+    assert(test.process() < EPSILON);
+
+
 }

@@ -6,7 +6,7 @@ namespace IBDSP::oscillators
     SawtoothOscillator::SawtoothOscillator(
         float amplitude,
         float frequency,
-        float phase,
+        double phase,
         float sampleRate)
         : mAmplitude(amplitude),
           mFrequency(frequency),
@@ -48,7 +48,7 @@ namespace IBDSP::oscillators
         return out;
     }
 
-    void SawtoothOscillator::reset(float phase)
+    void SawtoothOscillator::reset(double phase)
     {
         mPhase = phase;
     }

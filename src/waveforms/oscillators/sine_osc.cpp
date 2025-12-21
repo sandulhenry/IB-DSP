@@ -7,7 +7,7 @@ namespace IBDSP::oscillators
     SineOscillator::SineOscillator(
         float amplitude,
         float frequency,
-        float phase,
+        double phase,
         float sampleRate)
         : mAmplitude(amplitude),
           mFrequency(frequency),
@@ -45,7 +45,7 @@ namespace IBDSP::oscillators
         return out;
     }
 
-    void SineOscillator::reset(float phase)
+    void SineOscillator::reset(double phase)
     {
         mPhase = phase;
     }
