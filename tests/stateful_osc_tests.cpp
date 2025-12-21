@@ -5,13 +5,34 @@
 #include <iostream>
 #include <cmath>
 #include <cassert>
+#include <vector>
 
 static constexpr float SAMPLE_RATE = 48000.0f;
 static constexpr float EPSILON = 1e-4f;
 
-// SINE WAVE TESTS
+/* 
+    NOTE: 
+    samples per cycle = sample rate / wavefrom frequnecy 
 
+    for example, for the default sine wave, there are 1000/1 samples per cycle. 
+*/
 int main(){
-    assert(0 == 0);
-    return 0;
+    
+    // sine wave tests
+
+    IBDSP::oscillators::SineOscillator test;
+
+    //initally 0
+    assert(std::fabs(test.process()) <= EPSILON);
+
+    /* A qaurter of the way through the cycle, we should ~1 */
+
+    std::vector<float> buffer (250-1);
+    test.processBlock(buffer.data(), 250-1);
+
+    std::cout << "BUFFER BACK is " << buffer.back() << std::endl;
+
+    assert(std::fabs(buffer.back() - 1) < EPSILON);
+
+    
 }

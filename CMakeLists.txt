@@ -20,6 +20,10 @@ add_library(IBDSP
     src/waveforms/sine.cpp
     src/waveforms/square.cpp
     src/waveforms/sawtooth.cpp
+    src/waveforms/oscillators/sawtooth_osc.cpp
+    src/waveforms/oscillators/sine_osc.cpp
+    src/waveforms/oscillators/square_osc.cpp
+    
 )
 
 # -------------------------------
@@ -31,7 +35,7 @@ target_include_directories(IBDSP
 )
 
 # -------------------------------
-# Warnings (good for learning)
+# Warnings
 # -------------------------------
 if (MSVC)
     target_compile_options(IBDSP PRIVATE /W4)
@@ -40,12 +44,12 @@ else()
 endif()
 
 # -------------------------------
-# Optional: build as shared library
+# Build as shared library
 # -------------------------------
 option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 # -------------------------------
-# Install rules (optional, but pro)
+# Install rules 
 # -------------------------------
 install(
     TARGETS IBDSP

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace IBDSP::waveforms
+namespace IBDSP
 {
     constexpr float TWO_PI = 6.283185307179586f;
 }
