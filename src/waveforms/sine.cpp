@@ -1,5 +1,5 @@
 #include <IBDSP/waveforms/sine.hpp>
-#include <IBDSP/waveforms/common.hpp>
+#include <IBDSP/common.hpp>
 
 #include <cmath>
 

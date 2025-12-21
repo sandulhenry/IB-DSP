@@ -1,5 +1,5 @@
 #include <IBDSP/waveforms/square.hpp>
-#include <IBDSP/waveforms/common.hpp>
+#include <IBDSP/common.hpp>
 
 #include <cmath>
 #include <algorithm>

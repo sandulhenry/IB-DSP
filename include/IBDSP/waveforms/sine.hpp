@@ -20,4 +20,5 @@ namespace IBDSP::waveforms
         int   numSamples,
         float phase = 0.0f
     );
+
 }

@@ -1,5 +1,5 @@
 #include <IBDSP/waveforms/sawtooth.hpp>
-#include <IBDSP/waveforms/common.hpp>
+#include <IBDSP/common.hpp>
 
 #include <cmath>
 
