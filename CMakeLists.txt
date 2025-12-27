@@ -23,7 +23,7 @@ add_library(IBDSP
     src/waveforms/oscillators/sawtooth_osc.cpp
     src/waveforms/oscillators/sine_osc.cpp
     src/waveforms/oscillators/square_osc.cpp
-    
+    src/FTs/fft.cpp
 )
 
 # -------------------------------
