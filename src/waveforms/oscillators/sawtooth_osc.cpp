@@ -36,7 +36,7 @@ namespace IBDSP::oscillators
     float SawtoothOscillator::process()
     {
         // Normalize phase to [0, 1)
-        float normPhase = mPhase / TWO_PI;
+        float normPhase = (float) mPhase / TWO_PI;
 
         // Bipolar sawtooth [-1, 1)
         float out = (2.0f * normPhase - 1.0f) * mAmplitude;

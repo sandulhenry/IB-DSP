@@ -2,6 +2,6 @@
 
 namespace IBDSP
 {
-    constexpr double TWO_PI = 6.283185307179586f;
-    constexpr double PI = 3.14159265358979;
+    constexpr float TWO_PI = 6.283185307179586f;
+    constexpr float PI = 3.14159265358979f;
 }

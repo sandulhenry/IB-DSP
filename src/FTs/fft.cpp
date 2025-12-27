@@ -7,12 +7,12 @@ namespace IBDSP
     //in place fft
     void fft(std::vector<std::complex<double>> &a, bool invert)
     {
-        int n = a.size();
+        int n = (int) a.size();
         if (n == 1)
             return;
 
         std::vector<std::complex<double>> a0(n / 2), a1(n / 2);
-        for (int i = 0; 2 * i < n; i++)
+        for (int i = 0; 2 * i < (int) n; i++)
         {
             a0[i] = a[2 * i];
             a1[i] = a[2 * i + 1];

@@ -15,7 +15,7 @@ namespace IBDSP::waveforms
     {
         std::vector<float> buffer(numSamples);
 
-        const float phaseInc = TWO_PI * frequency / sampleRate;
+        const double phaseInc = TWO_PI * frequency / sampleRate;
 
         // Normalize phase
         phase = std::fmod(phase, TWO_PI);
