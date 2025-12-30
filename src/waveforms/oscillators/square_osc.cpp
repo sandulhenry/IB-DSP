@@ -6,7 +6,7 @@ namespace IBDSP::oscillators
     SquareOscillator::SquareOscillator(
         float amplitude,
         float frequency,
-        float phase,
+        double phase,
         float sampleRate,
         float duty
     )
@@ -57,7 +57,7 @@ namespace IBDSP::oscillators
         return out;
     }
 
-    void SquareOscillator::reset(float phase)
+    void SquareOscillator::reset(double phase)
     {
         mPhase = phase;
     }

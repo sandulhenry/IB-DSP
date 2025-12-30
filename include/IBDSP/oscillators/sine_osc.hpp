@@ -10,7 +10,7 @@ namespace IBDSP::oscillators
         SineOscillator(
             float amplitude = 1.0f,
             float frequency = 1.0f,
-            float phase = 0.0f,
+            double phase = 0.0f,
             float sampleRate = 1000.0f
         );
 
@@ -19,14 +19,14 @@ namespace IBDSP::oscillators
         void setAmplitude(float amp) override;
 
         float process() override;
-        void reset(float phase = 0.0f) override;
+        void reset(double phase = 0.0f) override;
 
     private:
         void updatePhaseIncrement();
 
         float mAmplitude;
         float mFrequency;
-        float mPhase;
+        double mPhase;
         float mSampleRate;
         float mPhaseInc;
     };

@@ -10,7 +10,7 @@ namespace IBDSP::oscillators
         SquareOscillator(
             float amplitude = 1.0f,
             float frequency = 1.0f,
-            float phase = 0.0f,
+            double phase = 0.0f,
             float sampleRate = 1000.0f,
             float duty = 0.5f
         );
@@ -23,14 +23,14 @@ namespace IBDSP::oscillators
         void setDutyCycle(float duty);
 
         float process() override;
-        void reset(float phase = 0.0f) override;
+        void reset(double phase = 0.0f) override;
 
     private:
         void updatePhaseIncrement();
 
         float mAmplitude;
         float mFrequency;
-        float mPhase;
+        double mPhase;
         float mSampleRate;
         float mPhaseInc;
         float mDuty;   // 0.0–1.0

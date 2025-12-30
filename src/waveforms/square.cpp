@@ -19,14 +19,14 @@ namespace IBDSP::waveforms
 
         duty = std::clamp(duty, 0.0f, 1.0f);
 
-        const float phaseInc = TWO_PI * frequency / sampleRate;
+        const float phaseInc = (float) TWO_PI * frequency / sampleRate;
 
-        phase = std::fmod(phase, TWO_PI);
+        phase = std::fmod(phase, (float) TWO_PI);
         if (phase < 0.0f) phase += TWO_PI;
 
         for (int i = 0; i < numSamples; ++i)
         {
-            const float normPhase = phase / TWO_PI;
+            const float normPhase = phase / (float) TWO_PI;
 
             buffer[i] = (normPhase < duty ? amplitude : -amplitude);
 
