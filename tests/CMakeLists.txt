@@ -10,3 +10,8 @@ add_executable(fft_tests)
 target_sources(fft_tests PRIVATE fft_tests.cpp)
 target_link_libraries(fft_tests PRIVATE IBDSP)
 add_test(NAME fft_tests COMMAND fft_tests)
+
+add_executable(csv_out EXCLUDE_FROM_ALL
+    python_tests.cpp
+)
+target_link_libraries(csv_out PRIVATE IBDSP)
